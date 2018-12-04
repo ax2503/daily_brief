@@ -21,7 +21,9 @@ def main():
   else :
     aud = 0
 
-  print('gold oz in aud = ' + str((int)(goldOZ / aud)*100/100))
+  audgold = goldOZ/aud
+  audgold = ((int)(audgold * 100))/100
+  print('gold oz in aud = ' + str(audgold))
 
 if __name__ == '__main__':
   main()
