@@ -5,9 +5,16 @@ def silver1Kilo():
   url = 'https://www.ainsliebullion.com.au/products/silver-bullion/1kg-ainslie-silver-bullion/tabid/85/type/2/guid/484924f6-01bb-4d72-888f-6bebbeadc935/default.aspx'
   r=requests.get(url,allow_redirects= True)
   open('silverkg.html','wb').write(r.content)
-  #f = open('silverkg.html','r')
-  #text = f.read()
-  return
+  f = open('silverkg.html','r')
+  text = f.read()
+  match = re.search(r'(AUD\$<span id=\"dnn_ctr518_bullionStoreUI_lblProductDisplayPrice\">)(\d+\.\d+)',text)
+  if match:
+    print (match.group())
+    silverkg = match.group(2)
+  else:
+    silverkg = 0
+  
+  return silverkg
 
 #Returns a stock price, given an ASX stock code
 def getStockprice(code):
@@ -85,7 +92,7 @@ def main():
 
   print('Total = ' + str(totalstockvalue))
 
-  silver1Kilo()
+  print ('Silver 1 Kilo = ' + str(silver1Kilo()))
   
   
 
