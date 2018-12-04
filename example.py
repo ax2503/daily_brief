@@ -1,6 +1,15 @@
 import re
 import requests
 
+def silver1Kilo():
+  url = 'https://www.ainsliebullion.com.au/products/silver-bullion/1kg-ainslie-silver-bullion/tabid/85/type/2/guid/484924f6-01bb-4d72-888f-6bebbeadc935/default.aspx'
+  r=requests.get(url,allow_redirects= True)
+  open('silverkg.html','wb').write(r.content)
+  #f = open('silverkg.html','r')
+  #text = f.read()
+  return
+
+#Returns a stock price, given an ASX stock code
 def getStockprice(code):
   url = 'https://www.asx.com.au/asx/markets/equityPrices.do?by=asxCodes&asxCodes=' + code
   r=requests.get(url,allow_redirects = True)
@@ -15,7 +24,7 @@ def getStockprice(code):
   return codeprice
 
 
-
+#Returns the price of Gold and Silver in australian dollars
 def calcPMprices():
   url = 'https://www.ainsliebullion.com.au/'
   r=requests.get(url, allow_redirects = True)
@@ -69,11 +78,14 @@ def main():
   totalstockvalue = 0
   for k in holdingdict.keys() :
     stockprice = getStockprice(k)
-    dollarvalue = holdingdict[k] * stockprice
+    dollarvalue = ((int)(holdingdict[k] * stockprice*100))/100
+    print(k + " "+ str(dollarvalue))
     valuedict[k] = dollarvalue
     totalstockvalue += dollarvalue
 
-  print(totalstockvalue)
+  print('Total = ' + str(totalstockvalue))
+
+  silver1Kilo()
   
   
 
