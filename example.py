@@ -64,17 +64,18 @@ def main():
   stash = (int)((gold * 10 + silver * 689)*100)/100
   print('value of stash = ' + str(stash))
 
-  stockprice = getStockprice('AB1')
+  valuedict={}
+
+  totalstockvalue = 0
+  for k in holdingdict.keys() :
+    stockprice = getStockprice(k)
+    dollarvalue = holdingdict[k] * stockprice
+    valuedict[k] = dollarvalue
+    totalstockvalue += dollarvalue
+
+  print(totalstockvalue)
   
-  AB1 = stockprice * 22400
-  print ('Value of AB1 = ' + str(AB1))
-
-  stockprice = getStockprice('CBA')
- 
-  CBA = stockprice * 371
-  print ('Value of CBA = ' + str(CBA))
-
-  print (pricedict)
+  
 
 if __name__ == '__main__':
   main()
