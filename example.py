@@ -49,7 +49,10 @@ def calcPMprices():
 
 
 def main():
-  pricedict = {'AB1':0,'CBA':0}
+  holdingdict = {
+    'AB1':22400,'BLA' : 2000, 'CBA':371,'CCL':711 + 518, 'CLH': 2817 + 7373,
+    'GEM':5528 + 722, 'LVT':3300, 'MYR':731, 'TLS':3056,
+    'WOW':344 + 182+ 88, 'WPL':58 + 238, 'YOW':22000, 'ZEN': 2000 }
 
   PMprices = calcPMprices()
   gold = PMprices[0]
@@ -62,12 +65,12 @@ def main():
   print('value of stash = ' + str(stash))
 
   stockprice = getStockprice('AB1')
-  pricedict['AB1'] = stockprice
+  
   AB1 = stockprice * 22400
   print ('Value of AB1 = ' + str(AB1))
 
   stockprice = getStockprice('CBA')
-  pricedict['CBA'] = stockprice
+ 
   CBA = stockprice * 371
   print ('Value of CBA = ' + str(CBA))
 
