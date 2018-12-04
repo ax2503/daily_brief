@@ -1,6 +1,21 @@
 import re
 import requests
 
+def getStockprice(code):
+  url = 'https://www.asx.com.au/asx/markets/equityPrices.do?by=asxCodes&asxCodes=' + code
+  r=requests.get(url,allow_redirects = True)
+  open(code+'.html','wb').write(r.content)
+  f = open(code + '.html','r')
+  text = f.read()
+  match = re.search(r'(<td class=\"last\">)(\d+\.\d+)',text)
+  if match : 
+    codeprice = float(match.group(2))
+  else :
+    codeprice = 0
+  return codeprice
+
+
+
 def calcPMprices():
   url = 'https://www.ainsliebullion.com.au/'
   r=requests.get(url, allow_redirects = True)
@@ -34,6 +49,8 @@ def calcPMprices():
 
 
 def main():
+  pricedict = {'AB1':0,'CBA':0}
+
   PMprices = calcPMprices()
   gold = PMprices[0]
   silver =PMprices[1]
@@ -43,6 +60,18 @@ def main():
   print('silver oz in aud = ' + str(silver))
   stash = (int)((gold * 10 + silver * 689)*100)/100
   print('value of stash = ' + str(stash))
+
+  stockprice = getStockprice('AB1')
+  pricedict['AB1'] = stockprice
+  AB1 = stockprice * 22400
+  print ('Value of AB1 = ' + str(AB1))
+
+  stockprice = getStockprice('CBA')
+  pricedict['CBA'] = stockprice
+  CBA = stockprice * 371
+  print ('Value of CBA = ' + str(CBA))
+
+  print (pricedict)
 
 if __name__ == '__main__':
   main()
