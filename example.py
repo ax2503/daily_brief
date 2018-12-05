@@ -7,7 +7,7 @@ def getDow() :
   open('dow.html','wb').write(r.content)
   f = open('dow.html')
   text = f.read()
-  ##search re not finishe
+  
   match = re.search(r'maximumFractionDigits:2\" data-animation=\"\" data-jsvalue=\"\d+\.\d+\">([0-9,\.]+)<',text)
   if match : 
     result = match.group(1)
@@ -16,6 +16,7 @@ def getDow() :
 
   return result
 
+#Returns the purchase price of a one kilo silver block
 def silver1Kilo():
   url = 'https://www.ainsliebullion.com.au/products/silver-bullion/1kg-ainslie-silver-bullion/tabid/85/type/2/guid/484924f6-01bb-4d72-888f-6bebbeadc935/default.aspx'
   r=requests.get(url,allow_redirects= True)
@@ -28,7 +29,7 @@ def silver1Kilo():
   else:
     silverkg = 0
   
-  return silverkg
+  return float(silverkg)
 
 #Returns a stock price, given an ASX stock code
 def getStockprice(code):
@@ -93,6 +94,13 @@ def main():
   print('silver oz in aud = ' + str(silver))
   stash = (int)((gold * 10 + silver * 689)*100)/100
   print('value of stash = ' + str(stash))
+  silver1k = silver1Kilo()
+  print ('Silver 1 Kilo = ' + str(silver1k))
+
+  print('Difference between silver spot and purchase price for one kg of silver')
+  silverdiff = int((silver1k - silver * 31.15) * 100)/100
+  print (str(silverdiff)  + ' ' + str(int(silverdiff/silver1k * 100)) + '%')
+  print()
 
   valuedict={}
 
@@ -107,8 +115,7 @@ def main():
   totalstockvalue = int(totalstockvalue * 100)/100
   print ('Total Stock Value = '+ str(totalstockvalue))
 
-  print ('Silver 1 Kilo = ' + str(silver1Kilo()))
-  
+   
   ##
   print("DOW = " + str(getDow()))
   
