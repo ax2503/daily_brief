@@ -1,6 +1,21 @@
 import re
 import requests
 
+def getDow() :
+  url = 'https://markets.businessinsider.com/index/dow_jones'
+  r=requests.get(url, allow_redirects=True)
+  open('dow.html','wb').write(r.content)
+  f = open('dow.html')
+  text = f.read()
+  ##search re not finishe
+  match = re.search(r'maximumFractionDigits:2\" data-animation=\"\" data-jsvalue=\"\d+\.\d+\">([0-9,\.]+)<',text)
+  if match : 
+    result = match.group(1)
+  else :
+    result = 0
+
+  return result
+
 def silver1Kilo():
   url = 'https://www.ainsliebullion.com.au/products/silver-bullion/1kg-ainslie-silver-bullion/tabid/85/type/2/guid/484924f6-01bb-4d72-888f-6bebbeadc935/default.aspx'
   r=requests.get(url,allow_redirects= True)
@@ -94,6 +109,8 @@ def main():
 
   print ('Silver 1 Kilo = ' + str(silver1Kilo()))
   
+  ##
+  print("DOW = " + str(getDow()))
   
 
 if __name__ == '__main__':
