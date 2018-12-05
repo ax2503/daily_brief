@@ -90,8 +90,6 @@ def main():
     valuedict[k] = dollarvalue
     totalstockvalue += dollarvalue
 
-  print('Total = ' + str(totalstockvalue))
-
   print ('Silver 1 Kilo = ' + str(silver1Kilo()))
   
   
