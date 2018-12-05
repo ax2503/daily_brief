@@ -9,7 +9,6 @@ def silver1Kilo():
   text = f.read()
   match = re.search(r'(AUD\$<span id=\"dnn_ctr518_bullionStoreUI_lblProductDisplayPrice\">)(\d+\.\d+)',text)
   if match:
-    print (match.group())
     silverkg = match.group(2)
   else:
     silverkg = 0
@@ -89,6 +88,9 @@ def main():
     print(k + " "+ str(dollarvalue))
     valuedict[k] = dollarvalue
     totalstockvalue += dollarvalue
+
+  totalstockvalue = int(totalstockvalue * 100)/100
+  print ('Total Stock Value = '+ str(totalstockvalue))
 
   print ('Silver 1 Kilo = ' + str(silver1Kilo()))
   
