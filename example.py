@@ -3,6 +3,8 @@
 #Substitution of other websites is not possible as the searches for particular numbers to 
 #use in calculations is done by regular expression patterns specific to the webpages that are
 #downloaded.
+#The software can be used only on the basis that I have no responsiblity for the decisions made
+#with the information provided by this program.
 
 
 import re
@@ -24,6 +26,7 @@ def getDow() :
 
   return result
 
+#Returns the value of the ASX200
 def getASX200() :
   url = 'https://www.asx.com.au/asx/statistics/indexInfo.do'
   r=requests.get(url, allow_redirects=True)
