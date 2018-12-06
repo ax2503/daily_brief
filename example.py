@@ -9,6 +9,8 @@
 
 import re
 import requests
+import pickledb
+import datetime
 
 #Returns the value of the Dow Jones Index
 def getDow() :
@@ -125,7 +127,13 @@ def calcPMprices():
   audgold = ((int)(audgold * 100))/100
   audsilver = silverOZ/aud
   audsilver = ((int)(audsilver * 100))/100
-  return [audgold, audsilver,aud]  
+  return [audgold, audsilver,aud]
+
+def savePrice(db,ticker, value) :
+  dbkey = str(datetime.date.today()) + ticker
+  db.set (dbkey , str(value))
+
+  return
 
 
 
@@ -135,17 +143,29 @@ def main():
     'GEM':5528 + 722, 'LVT':3300, 'MYR':731, 'TLS':3056,
     'WOW':344 + 182+ 88, 'WPL':58 + 238, 'YOW':22000, 'ZEN': 2000 }
 
+  db = pickledb.load('stocks.fs', True)
+
   PMprices = calcPMprices()
   gold = PMprices[0]
   silver =PMprices[1]
 
   print('Aussie = ' + str(PMprices[2]))
+  savePrice(db,'Aussie',PMprices[2])
+
   print('gold oz in aud = ' + str(gold))
+  savePrice(db,'gold',gold)
+
   print('silver oz in aud = ' + str(silver))
+  savePrice(db,'silver', silver)
+
   stash = (int)((gold * 10 + silver * 689)*100)/100
   print('value of stash = ' + str(stash))
+  savePrice(db, 'stash', stash)
+
   silver1k = silver1Kilo()
   print ('Silver 1 Kilo = ' + str(silver1k))
+  savePrice(db,'silver1k', silver1k )
+
 
   print('Difference between silver spot and purchase price for one kg of silver')
   silverdiff = int((silver1k - silver * 31.15) * 100)/100
@@ -177,6 +197,8 @@ def main():
 
   print("DOW = " + str(getDow()))
   print('ASX200 = '  + str(getASX200()))
+
+  db.dump()
   
 
 if __name__ == '__main__':
