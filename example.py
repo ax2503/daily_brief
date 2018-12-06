@@ -37,7 +37,7 @@ def getASX200() :
     result = 0 
   return result
 
-#Checks if there is a new news article on the Ainslie bullion website.
+#Returns the title of the latest news article and indicates if it is new.
 def checkNewArticle() :
   f = open('LastArticle.txt','r')
   last = f.read()
