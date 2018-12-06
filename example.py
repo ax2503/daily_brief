@@ -1,4 +1,4 @@
-#Displays timely financial information, most of which is only of interest to me personally.
+#Displays delayed financial information, most of which is only of interest to me personally.
 #Uses publicly available information from popular websites
 #Substitution of other websites is not possible as the searches for particular numbers to 
 #use in calculations is done by regular expression patterns specific to the webpages that are
@@ -23,6 +23,13 @@ def getDow() :
     result = 0
 
   return result
+
+def getASX200() :
+  url = 'https://www.asx.com.au/asx/statistics/indexInfo.do'
+  r=requests.get(url, allow_redirects=True)
+  open('ASX200.html','wb').write(r.content)
+    
+  return
 
 #Checks if there is a new news article on the Ainslie bullion website.
 def checkNewArticle() :
@@ -159,6 +166,7 @@ def main():
   print ('Total Stock Value = '+ str(totalstockvalue))
 
   print("DOW = " + str(getDow()))
+  getASX200()
   
 
 if __name__ == '__main__':
