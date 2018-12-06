@@ -28,8 +28,14 @@ def getASX200() :
   url = 'https://www.asx.com.au/asx/statistics/indexInfo.do'
   r=requests.get(url, allow_redirects=True)
   open('ASX200.html','wb').write(r.content)
-    
-  return
+  f = open('ASX200.html','r')
+  text = f.read()
+  match = re.search(r'XJO[\r\n]+\s+</td>[\r\n]+\s+<td nowrap="nowrap" class="price-down">[\r\n]+\s+([0-9,\.]+)',text)
+  if match :
+    result = match.group(1)
+  else :
+    result = 0 
+  return result
 
 #Checks if there is a new news article on the Ainslie bullion website.
 def checkNewArticle() :
@@ -166,7 +172,7 @@ def main():
   print ('Total Stock Value = '+ str(totalstockvalue))
 
   print("DOW = " + str(getDow()))
-  getASX200()
+  print('ASX200 = '  + str(getASX200()))
   
 
 if __name__ == '__main__':
