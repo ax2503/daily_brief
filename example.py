@@ -35,7 +35,7 @@ def getASX200() :
   open('ASX200.html','wb').write(r.content)
   f = open('ASX200.html','r')
   text = f.read()
-  match = re.search(r'XJO[\r\n]+\s+</td>[\r\n]+\s+<td nowrap="nowrap" class="price-down">[\r\n]+\s+([0-9,\.]+)',text)
+  match = re.search(r'XJO[\r\n]+\s+</td>[\r\n]+\s+<td nowrap=\"nowrap\" class=\"price-[a-z,A-Z]+\">[\r\n]+\s+([0-9,\.]+)',text)
   if match :
     result = match.group(1)
   else :
@@ -170,6 +170,7 @@ def main():
   print('Difference between silver spot and purchase price for one kg of silver')
   silverdiff = int((silver1k - silver * 31.15) * 100)/100
   print ('$' + str(silverdiff)  + ' ' + str(int(silverdiff/silver1k * 10000)/100) + '%')
+  savePrice(db, 'silverdiff', silverdiff)
   print()
 
   article = checkNewArticle()
@@ -190,14 +191,20 @@ def main():
     dollarvalue = ((int)(holdingdict[k] * stockprice*100))/100
     print(k + " "+ str(dollarvalue))
     valuedict[k] = dollarvalue
+    savePrice(db, k, valuedict[k])
     totalstockvalue += dollarvalue
 
   totalstockvalue = int(totalstockvalue * 100)/100
   print ('Total Stock Value = '+ str(totalstockvalue))
+  savePrice(db, 'totalstockvalue',totalstockvalue)
 
-  print("DOW = " + str(getDow()))
-  print('ASX200 = '  + str(getASX200()))
-
+  DOW = getDow()
+  print("DOW = " + str(DOW))
+  savePrice(db,'DOW',DOW)
+  ASX200 = getASX200()
+  print('ASX200 = '  + str(ASX200))
+  savePrice(db, 'ASX200', ASX200)
+  
   db.dump()
   
 
