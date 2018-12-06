@@ -122,7 +122,7 @@ def calcPMprices():
   audgold = ((int)(audgold * 100))/100
   audsilver = silverOZ/aud
   audsilver = ((int)(audsilver * 100))/100
-  return [audgold, audsilver]  
+  return [audgold, audsilver,aud]  
 
 
 
@@ -136,7 +136,7 @@ def main():
   gold = PMprices[0]
   silver =PMprices[1]
 
-
+  print('Aussie = ' + str(PMprices[2]))
   print('gold oz in aud = ' + str(gold))
   print('silver oz in aud = ' + str(silver))
   stash = (int)((gold * 10 + silver * 689)*100)/100
