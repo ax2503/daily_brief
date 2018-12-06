@@ -160,6 +160,7 @@ def main():
 
   valuedict={}
 
+  #Calculate value of stocks
   totalstockvalue = 0
   for k in holdingdict.keys() :
     stockprice = getStockprice(k)
