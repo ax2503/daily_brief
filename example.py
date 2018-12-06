@@ -40,7 +40,7 @@ def getASX200() :
     result = 0 
   return result
 
-#Checks if there is a new news article on the Ainslie bullion website.
+#Returns the title of the latest news article and indicates if it is new.
 def checkNewArticle() :
   f = open('LastArticle.txt','r')
   last = f.read()
@@ -125,7 +125,7 @@ def calcPMprices():
   audgold = ((int)(audgold * 100))/100
   audsilver = silverOZ/aud
   audsilver = ((int)(audsilver * 100))/100
-  return [audgold, audsilver]  
+  return [audgold, audsilver,aud]  
 
 
 
@@ -139,7 +139,7 @@ def main():
   gold = PMprices[0]
   silver =PMprices[1]
 
-
+  print('Aussie = ' + str(PMprices[2]))
   print('gold oz in aud = ' + str(gold))
   print('silver oz in aud = ' + str(silver))
   stash = (int)((gold * 10 + silver * 689)*100)/100
@@ -163,6 +163,7 @@ def main():
 
   valuedict={}
 
+  #Calculate value of stocks
   totalstockvalue = 0
   for k in holdingdict.keys() :
     stockprice = getStockprice(k)
