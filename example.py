@@ -1,3 +1,10 @@
+#Displays timely financial information, most of which is only of interest to me personally.
+#Uses publicly available information from popular websites
+#Substitution of other websites is not possible as the searches for particular numbers to 
+#use in calculations is done by regular expression patterns specific to the webpages that are
+#downloaded.
+
+
 import re
 import requests
 
@@ -42,9 +49,6 @@ def checkNewArticle() :
     result = ''
     newarticle = False
   return [result, newarticle]
-
-
-
 
 #Returns the purchase price of a one kilo silver block
 def silver1Kilo():
@@ -129,7 +133,7 @@ def main():
 
   print('Difference between silver spot and purchase price for one kg of silver')
   silverdiff = int((silver1k - silver * 31.15) * 100)/100
-  print (str(silverdiff)  + ' ' + str(int(silverdiff/silver1k * 100)) + '%')
+  print ('$' + str(silverdiff)  + ' ' + str(int(silverdiff/silver1k * 10000)/100) + '%')
   print()
 
   article = checkNewArticle()
@@ -154,8 +158,6 @@ def main():
   totalstockvalue = int(totalstockvalue * 100)/100
   print ('Total Stock Value = '+ str(totalstockvalue))
 
-   
-  ##
   print("DOW = " + str(getDow()))
   
 
