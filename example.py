@@ -1,11 +1,12 @@
 import re
 import requests
 
+#Returns the value of the Dow Jones Index
 def getDow() :
   url = 'https://markets.businessinsider.com/index/dow_jones'
   r=requests.get(url, allow_redirects=True)
   open('dow.html','wb').write(r.content)
-  f = open('dow.html')
+  f = open('dow.html','r')
   text = f.read()
   
   match = re.search(r'maximumFractionDigits:2\" data-animation=\"\" data-jsvalue=\"\d+\.\d+\">([0-9,\.]+)<',text)
@@ -15,6 +16,35 @@ def getDow() :
     result = 0
 
   return result
+
+#Checks if there is a new news article on the Ainslie bullion website.
+def checkNewArticle() :
+  f = open('LastArticle.txt','r')
+  last = f.read()
+  f.close()
+  url = 'https://www.ainsliebullion.com.au/News.aspx'
+  r=requests.get(url,allow_redirects=True)
+  open('ainslienews.html','wb').write(r.content)
+  f = open('ainslienews.html')
+  text = f.read()
+  f.close()
+  match = re.search(r'<h1><a title=\"([A-Z,a-z,0-9,\s]+)',text)
+  if match :
+    result = match.group(1)
+    if match.group(1) != last :
+      newarticle = True
+      f=open('LastArticle.txt','w+')
+      f.write(match.group(1))
+      f.close()
+    else :
+      newarticle = False
+  else:
+    result = ''
+    newarticle = False
+  return [result, newarticle]
+
+
+
 
 #Returns the purchase price of a one kilo silver block
 def silver1Kilo():
@@ -101,6 +131,15 @@ def main():
   silverdiff = int((silver1k - silver * 31.15) * 100)/100
   print (str(silverdiff)  + ' ' + str(int(silverdiff/silver1k * 100)) + '%')
   print()
+
+  article = checkNewArticle()
+  print ('Latest Ainslie News Article:')
+  if article[1] :
+    print(article[0] + ' ******new article')
+  else :
+    print(article[0])
+
+  print ()
 
   valuedict={}
 
