@@ -3,6 +3,20 @@ import requests
 import re
 import sys
 
+def NewsAu(args) :
+  print("**********News AU**********")
+  url ='https://www.news.com.au/'
+  r=requests.get(url, allow_redirects = True)
+  open('newsau.html','wb').write(r.content)
+  f = open('newsau.html','r')
+  try :
+    text = f.read()
+  except UnicodeDecodeError :
+    text = ''
+    print ('Problem opening NewsAU News')
+  f.close()
+  return
+
 def GoogleNews(args) :
   print("**********Google News**********")
   url = 'https://news.google.com/?hl=en-AU&gl=AU&ceid=AU:en'
@@ -55,6 +69,7 @@ def NewsNow(args) :
 def main() :
   args = sys.argv[1:]
   GoogleNews(args)
+  #NewsAu(args)
   NewsNow(args)
 
 
