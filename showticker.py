@@ -1,4 +1,4 @@
-#This program takes a ticker symbol and displays all the date in stocks.fs for the keys that match
+#This program takes a ticker symbol and displays all the datedata in stocks.fs for the keys that match
 import sys
 import pickledb
 

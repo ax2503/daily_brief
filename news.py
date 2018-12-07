@@ -16,9 +16,10 @@ def main() :
     for k in match :
       print(k[10:])
   else :
-    for k in match :
-      if args[0] in k :
-        print(k[10:])
+    for term in args :
+      for k in match :
+        if term in k :
+          print(k[10:])
 
   f.close()
 
