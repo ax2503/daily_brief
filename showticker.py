@@ -12,10 +12,10 @@ def main() :
     for k in db.getall() :
       print(k[:10] + ' ' + k[10:] + ' ' + db.get(k))
   else :
-      ticker = args[0]
-      for k in db.getall() :
-        if k[10:] == args[0] :
-          print(k[:10] + ' ' + k[10:] + ' ' + db.get(k))
+      for ticker in args :
+        for k in db.getall() :
+          if k[10:] == ticker :
+            print(k[:10] + ' ' + k[10:] + ' ' + db.get(k))
       
 
   db.dump()  
