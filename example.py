@@ -120,6 +120,20 @@ def main():
   savePrice(db, 'ASX200', ASX200)
   
   db.dump()
+
+  #Watchlist
+  f = open('watchlist.txt','r')
+  lines = f.readlines()
+  for li in lines :
+    w = li.split()
+    price = stockvalues.getStockprice(w[0])
+    if w[1] == 'greaterthan' and price > float(w[2]) :
+      print (w[0] + ' is greater than ' + w[2])
+    if w[1] == 'lessthan' and price < float(w[2]) :
+      print (w[0] + ' is less than ' + w[2])
+  f.close()
+
+
   
 
 if __name__ == '__main__':
