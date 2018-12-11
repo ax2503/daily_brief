@@ -11,6 +11,7 @@ import re
 import requests
 import pickledb
 import datetime
+import sys
 
 import stockvalues
 
@@ -43,48 +44,60 @@ def checkNewArticle() :
   return [result, newarticle]
 
 
-def savePrice(db,ticker, value) :
+def savePrice(ticker, value) :
   dbkey = str(datetime.date.today()) + ticker
   db.set (dbkey , str(value))
 
   return
 
+def printChanged(caption, ticker,price) :
+  if not args :
+    print(caption)
+  else :
+    dbkey = str(datetime.date.today()) + ticker
+    oldprice = float(db.get(dbkey).replace(',',''))
+    if oldprice != price :
+      print(caption)
+  return
 
+args = sys.argv[1:]
+db = pickledb.load('stocks.fs', True)
 
 def main():
+
+
+
   holdingdict = {
     'AB1':22400,'BLA' : 2000, 'CBA':371,'CCL':711 + 518, 'CLH': 2817 + 7373,
     'GEM':5528 + 722, 'LVT':3300, 'MYR':731, 'TLS':3056,
     'WOW':344 + 182+ 88, 'WPL':58 + 238, 'YOW':22000, 'ZEN': 2000 }
 
-  db = pickledb.load('stocks.fs', True)
-
   PMprices = stockvalues.calcPMprices()
   gold = PMprices[0]
   silver =PMprices[1]
 
-  print('Aussie = ' + str(PMprices[2]))
-  savePrice(db,'Aussie',PMprices[2])
+  printChanged('Aussie = ' + str(PMprices[2]),'Aussie',PMprices[2])
+  savePrice('Aussie',PMprices[2])
 
-  print('gold oz in aud = ' + str(gold))
-  savePrice(db,'gold',gold)
+  printChanged('gold oz in aud = ' + str(gold), 'gold', gold)
+  savePrice('gold',gold)
 
-  print('silver oz in aud = ' + str(silver))
-  savePrice(db,'silver', silver)
+  printChanged('silver oz in aud = ' + str(silver), 'silver',silver)
+  savePrice('silver', silver)
 
   stash = (int)((gold * 10 + silver * 689)*100)/100
-  print('value of stash = ' + str(stash))
-  savePrice(db, 'stash', stash)
+  printChanged('value of stash = ' + str(stash),'stash',stash)
+  savePrice('stash', stash)
 
   silver1k = stockvalues.silver1Kilo()
-  print ('Silver 1 Kilo = ' + str(silver1k))
-  savePrice(db,'silver1k', silver1k )
+  printChanged('Silver 1 Kilo = ' + str(silver1k),'silver1k',silver1k)
+  savePrice('silver1k', silver1k )
 
 
   print('Difference between silver spot and purchase price for one kg of silver')
   silverdiff = int((silver1k - silver * 31.15) * 100)/100
-  print ('$' + str(silverdiff)  + ' ' + str(int(silverdiff/silver1k * 10000)/100) + '%')
-  savePrice(db, 'silverdiff', silverdiff)
+  printChanged('$' + str(silverdiff)  + ' ' + str(int(silverdiff/silver1k * 10000)/100) + '%','silverdiff',silverdiff)
+  savePrice('silverdiff', silverdiff)
   print()
 
   article = checkNewArticle()
@@ -103,21 +116,21 @@ def main():
   for k in holdingdict.keys() :
     stockprice = stockvalues.getStockprice(k)
     dollarvalue = ((int)(holdingdict[k] * stockprice*100))/100
-    print(k + " "+ str(dollarvalue))
+    printChanged(k + " "+ str(dollarvalue),k,dollarvalue)
     valuedict[k] = dollarvalue
-    savePrice(db, k, valuedict[k])
+    savePrice(k, valuedict[k])
     totalstockvalue += dollarvalue
 
   totalstockvalue = int(totalstockvalue * 100)/100
-  print ('Total Stock Value = '+ str(totalstockvalue))
-  savePrice(db, 'totalstockvalue',totalstockvalue)
+  printChanged('Total Stock Value = '+ str(totalstockvalue),'totalstockvalue',totalstockvalue)
+  savePrice('totalstockvalue',totalstockvalue)
 
   DOW = stockvalues.getDow()
-  print("DOW = " + str(DOW))
-  savePrice(db,'DOW',DOW)
+  printChanged("DOW = " + str(DOW),'DOW',DOW)
+  savePrice('DOW',DOW)
   ASX200 = stockvalues.getASX200()
-  print('ASX200 = '  + str(ASX200))
-  savePrice(db, 'ASX200', ASX200)
+  printChanged('ASX200 = '  + str(ASX200),'ASX200',ASX200)
+  savePrice('ASX200', ASX200)
   
   db.dump()
 
