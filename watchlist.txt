@@ -1,2 +1,4 @@
-BLA lessthan 1.20
+BLA greaterthan 1.20
 CBA lessthan 68.00
+IFL greaterthan 4.66
+TGA lessthan 0.30
