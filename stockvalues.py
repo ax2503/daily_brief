@@ -23,8 +23,16 @@ def calcPMprices():
   url = 'https://www.ainsliebullion.com.au/'
   r=requests.get(url, allow_redirects = True)
   open('ainslie.html', 'wb').write(r.content)
-  f = open('ainslie.html','r')
-  text = f.read()
+  with open('ainslie.html','r') as f :
+    text = ''
+    while True :
+      try:
+        c = f.read(1)
+        if not c :
+          break
+        text += c
+      except UnicodeDecodeError:
+        print ()
   match = re.search(r'(goldOZ = )(\d+\.\d+)', text)
   if match :
     goldOZ = float(match.group(2))
