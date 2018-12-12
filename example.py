@@ -25,9 +25,16 @@ def checkNewArticle() :
   url = 'https://www.ainsliebullion.com.au/News.aspx'
   r=requests.get(url,allow_redirects=True)
   open('ainslienews.html','wb').write(r.content)
-  f = open('ainslienews.html')
-  text = f.read()
-  f.close()
+  with open('ainslienews.html','r') as f :
+    text = ''
+    while True :
+      try:
+        c = f.read(1)
+        if not c :
+          break
+        text += c
+      except UnicodeDecodeError:
+        print ('Unicode decode error in stockvalues.calcPMprices(). Discarding one char.')
   match = re.search(r'<h1><a title=\"([A-Z,a-z,0-9,\s]+)',text)
   if match :
     result = match.group(1)
