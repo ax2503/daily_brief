@@ -34,7 +34,7 @@ def checkNewArticle() :
           break
         text += c
       except UnicodeDecodeError:
-        print ('Unicode decode error in stockvalues.calcPMprices(). Discarding one char.')
+        print ()
   match = re.search(r'<h1><a title=\"([A-Z,a-z,0-9,\s]+)',text)
   if match :
     result = match.group(1)
@@ -75,7 +75,7 @@ def main():
 
 
   holdingdict = {
-    'AB1':22400,'BLA' : 2000, 'CBA':371,'CCL':711 + 518, 'CLH': 2817 + 7373,
+    'AB1':22400, 'CBA':371,'CCL':711 + 518, 'CLH': 2817 + 7373,
     'GEM':5528 + 722, 'LVT':3300, 'MYR':731, 'TLS':3056,
     'WOW':344 + 182+ 88, 'WPL':58 + 238, 'YOW':22000, 'ZEN': 2000 }
 
