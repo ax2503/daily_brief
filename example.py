@@ -35,7 +35,7 @@ def checkNewArticle() :
         text += c
       except UnicodeDecodeError:
         print ()
-  match = re.search(r'<h1><a title=\"([A-Z,a-z,0-9,\s]+)',text)
+  match = re.search(r'<h1><a title=\"([A-Z,a-z,0-9,\-,\%,\.,\:,\",\s]+)',text)
   if match :
     result = match.group(1)
     if match.group(1) != last :
