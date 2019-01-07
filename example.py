@@ -100,11 +100,13 @@ def main():
   printChanged('Silver 1 Kilo = ' + str(silver1k),'silver1k',silver1k)
   savePrice('silver1k', silver1k )
 
-
-  print('Difference between silver spot and purchase price for one kg of silver')
-  silverdiff = int((silver1k - silver * 31.15) * 100)/100
-  printChanged('$' + str(silverdiff)  + ' ' + str(int(silverdiff/silver1k * 10000)/100) + '%','silverdiff',silverdiff)
-  savePrice('silverdiff', silverdiff)
+  try:
+    print('Difference between silver spot and purchase price for one kg of silver')
+    silverdiff = int((silver1k - silver * 31.15) * 100)/100
+    printChanged('$' + str(silverdiff)  + ' ' + str(int(silverdiff/silver1k * 10000)/100) + '%','silverdiff',silverdiff)
+    savePrice('silverdiff', silverdiff)
+  except ZeroDivisionError :
+    pass
   print()
 
   article = checkNewArticle()
