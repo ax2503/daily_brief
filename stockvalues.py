@@ -33,7 +33,7 @@ def calcPMprices():
         text += c
       except UnicodeDecodeError:
         print ()
-  match = re.search(r'(goldOZ = )(\d+\.\d+)', text)
+  match = re.search(r'(goldOZ = )(\d+\.*\d*)', text)
   if match :
     goldOZ = float(match.group(2))
   else:
@@ -45,7 +45,7 @@ def calcPMprices():
   else :
     aud = 0
 
-  match = re.search(r'(silverOZ = )(\d+\.\d+)',text)
+  match = re.search(r'(silverOZ = )(\d+\.*\d*)',text)
   if match :
     silverOZ = float(match.group(2))
   else :
