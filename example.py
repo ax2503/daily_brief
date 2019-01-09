@@ -84,21 +84,21 @@ def main():
   silver =PMprices[1]
 
   printChanged('Aussie = ' + str(PMprices[2]),'Aussie',PMprices[2])
-  savePrice('Aussie',PMprices[2])
+ 
 
   printChanged('gold oz in aud = ' + str(gold), 'gold', gold)
-  savePrice('gold',gold)
+ 
 
   printChanged('silver oz in aud = ' + str(silver), 'silver',silver)
-  savePrice('silver', silver)
+
 
   stash = (int)((gold * 10 + silver * 689)*100)/100
   printChanged('value of stash = ' + str(stash),'stash',stash)
-  savePrice('stash', stash)
+
 
   silver1k = stockvalues.silver1Kilo()
   printChanged('Silver 1 Kilo = ' + str(silver1k),'silver1k',silver1k)
-  savePrice('silver1k', silver1k )
+
 
   try:
     print('Difference between silver spot and purchase price for one kg of silver')
@@ -127,12 +127,12 @@ def main():
     dollarvalue = ((int)(holdingdict[k] * stockprice*100))/100
     printChanged(k + " "+ str(dollarvalue),k,dollarvalue)
     valuedict[k] = dollarvalue
-    savePrice(k, valuedict[k])
+
     totalstockvalue += dollarvalue
 
   totalstockvalue = int(totalstockvalue * 100)/100
   printChanged('Total Stock Value = '+ str(totalstockvalue),'totalstockvalue',totalstockvalue)
-  savePrice('totalstockvalue',totalstockvalue)
+
 
   print('Total Value = Stocks + PM ', str(totalstockvalue + stash))
 
@@ -141,7 +141,7 @@ def main():
   savePrice('DOW',DOW)
   ASX200 = stockvalues.getASX200()
   printChanged('ASX200 = '  + str(ASX200),'ASX200',ASX200)
-  savePrice('ASX200', ASX200)
+
   
   db.dump()
 
