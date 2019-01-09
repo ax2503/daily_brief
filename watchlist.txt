@@ -1,4 +1,5 @@
-BLA greaterthan 1.20
 CBA lessthan 68.00
 IFL greaterthan 4.66
 TGA lessthan 0.30
+DRO greater 0.15
+CCL lessthan 8.00
