@@ -134,6 +134,8 @@ def main():
   printChanged('Total Stock Value = '+ str(totalstockvalue),'totalstockvalue',totalstockvalue)
   savePrice('totalstockvalue',totalstockvalue)
 
+  print('Total Value = Stocks + PM ', str(totalstockvalue + stash))
+
   DOW = stockvalues.getDow()
   printChanged("DOW = " + str(DOW),'DOW',DOW)
   savePrice('DOW',DOW)
