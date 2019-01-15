@@ -99,6 +99,8 @@ def main():
   silver1k = stockvalues.silver1Kilo()
   printChanged('Silver 1 Kilo = ' + str(silver1k),'silver1k',silver1k)
 
+  print('%s %.2f' % ('Gold-Silver Ratio = ', gold/silver))
+
 
   try:
     print('Difference between silver spot and purchase price for one kg of silver')
