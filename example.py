@@ -77,7 +77,7 @@ def main():
   holdingdict = {
     'AB1':22400, 'CBA':371,'CCL':711 + 518, 'CLH': 2817 + 7373,
     'GEM':5528 + 722, 'LVT':3300, 'MYR':731, 'TLS':3056,
-    'WOW':344 + 182+ 88, 'WPL':58 + 238, 'YOW':22000, 'ZEN': 2000 }
+    'WOW':344 + 182+ 88, 'WPL':58 + 238, 'ZEN': 2000 }
 
   PMprices = stockvalues.calcPMprices()
   gold = PMprices[0]
